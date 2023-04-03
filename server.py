@@ -43,7 +43,7 @@ if __name__ == "__main__":
     app.config['SECRET_KEY'] = os.urandom(24)
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    initTestData()
+    #initTestData()
     config = loadConfig()
     app.config['PASSWORD'] = config['password']
     app.config['PAGEREFRESH'] = config['pagerefresh']
