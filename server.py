@@ -27,6 +27,11 @@ def loadConfig():
     
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--listenip', type=str, help='IP to listen on', default="0.0.0.0")
+    parser.add_argument('--listenport', type=int, help='Port to listen on', default=5000)
+    args = parser.parse_args()
+
     root_folder = os.path.dirname(__file__)
     app_folder = os.path.join(root_folder, 'app')
 	
@@ -43,4 +48,5 @@ if __name__ == "__main__":
     app.config['PASSWORD'] = config['password']
     app.config['PAGEREFRESH'] = config['pagerefresh']
 
-    app.run()
+    app.run(host=args.listenip,
+            port=args.listenport)

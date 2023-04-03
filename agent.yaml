@@ -1,5 +1,5 @@
 server: http://localhost:5000
-password: supermega
+password: password
 plugins:
 - sysinfo
 - http
