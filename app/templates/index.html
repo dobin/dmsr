@@ -25,6 +25,9 @@
             padding: 0.2em;
             background-color: #efefef;
         }
+        .pluginjson {
+            margin: 1em;
+        }
     </style>
 </head>
 <body>
@@ -42,7 +45,7 @@
             TIMEOUT
             {% endif %}
 
-            <pre>{{data[agent][plugin].data|prettyjson}}</pre>
+            <pre class="pluginjson">{{data[agent][plugin].data|prettyjson}}</pre>
         </div>
     {% endfor%}
 </div>
