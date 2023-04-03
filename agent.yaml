@@ -4,4 +4,4 @@ plugins:
 - sysinfo
 - http
 - process
-refresh: 2
+refresh: 60
