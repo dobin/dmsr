@@ -29,13 +29,13 @@
 </head>
 <body>
 
-{% for agent in data %}
+{% for agent in data|sort %}
 <div class="agent">
     <div class="agenttitle">
         {{agent}}
     </div>
 
-    {% for plugin in data[agent] %}
+    {% for plugin in data[agent]|sort %}
         <div class="plugin">
             {{plugin}}
             {% if data[agent][plugin].isTimeouted() %}
