@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Does My Shit Run?</title>
+    <meta http-equiv="refresh" content="{{config['PAGEREFRESH']}}">
+        
+    <style type="text/css">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .agent {
+            float: left;
+            margin: 0.2em;
+            background-color: #ffffff;
+            min-width: 10em;
+        }
+        .agenttitle {
+            font-size: large;
+            padding: 0.2em;
+            background-color: #c1c1c1;
+        }
+
+        .plugin {
+            margin-top: 0.2em;
+            padding: 0.2em;
+            background-color: #efefef;
+        }
+    </style>
+</head>
+<body>
+
+{% for agent in data %}
+<div class="agent">
+    <div class="agenttitle">
+        {{agent}}
+    </div>
+
+    {% for plugin in data[agent] %}
+        <div class="plugin">
+            {{plugin}}
+            {% if data[agent][plugin].isTimeouted() %}
+            TIMEOUT
+            {% endif %}
+
+            <pre>{{data[agent][plugin].data|prettyjson}}</pre>
+        </div>
+    {% endfor%}
+</div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+.vscode/*
+__pycache__/*
+__pycache__
+*.log
+.DS_Store
+bak/
+testing/
+todo.txt

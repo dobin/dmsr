@@ -1,0 +1,5 @@
+disks:
+- /
+show load: true
+show memory: true
+refresh: 10

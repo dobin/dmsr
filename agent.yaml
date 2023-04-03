@@ -1,0 +1,7 @@
+server: http://localhost:5000
+password: supermega
+plugins:
+- sysinfo
+- http
+- process
+refresh: 2
