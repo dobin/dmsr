@@ -42,11 +42,11 @@
     </div>
 
     {% for plugin in data[agent]|sort %}
-        <div class="plugin status-{{data[agent][plugin].status}}">
+        <div class="plugin status-{{data[agent][plugin].status}} {{ 'status-warn' if data[agent][plugin].isTimeouted() }}">
             
             {{plugin}}
             {% if data[agent][plugin].isTimeouted() %}
-            TIMEOUT
+            (timeout)
             {% endif %}
 
             <pre class="pluginjson">{{data[agent][plugin].data|prettyjson}}</pre>
