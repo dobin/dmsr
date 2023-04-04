@@ -10,6 +10,7 @@ class Plugin():
     def __init__(self, refresh: int):
         self.name = self.__class__.__name__
         self.refresh = refresh
+        self.private = False
         self.config = {}
 
 
@@ -18,7 +19,16 @@ class Plugin():
 
 
     def setConfig(self, config):
-        self.config = config
+        # copy new configs
+        # leave initial config alone (if config value doesnt exist)
+        for key in config:
+            self.config[key] = config[key]
+
+        # general configs not specific to a plugin
+        if 'refresh' in config:
+            self.refresh = config['refresh'] 
+        if 'private' in config:
+            self.refresh = config['private'] 
 
 
     def send(self, data):

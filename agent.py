@@ -24,13 +24,8 @@ def loadPlugins(pluginConfig, globalRefresh: int):
         # load plugin
         module = importlib.import_module('plugins.' + pluginName)
         p = getattr(module, pluginName)
-        
-        # configure it
         plugin = p(refresh=globalRefresh)
         plugin.setConfig(config)
-        if 'refresh' in config:
-            plugin.refresh = config['refresh']
-            
         plugins.append(plugin)
 
     return plugins
