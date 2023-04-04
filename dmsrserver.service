@@ -1,0 +1,12 @@
+[Unit]
+Description=DMSR Server
+After=network.target
+
+[Service]
+User=dmsr
+WorkingDirectory=/home/dmsr/dmsr
+ExecStart=/home/dmsr/dmsr/server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

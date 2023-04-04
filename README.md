@@ -27,6 +27,20 @@ Thats it.
   * configure the plugins in `plugins/<plugin>.yaml`
 
 
+## install
+
+We install it as a dedicated user:
+
+```
+$ sudo adduser --disabled-password dmsr
+$ cd /home/dmsr
+$ git clone https://github.com/dobin/dmsr
+```
+
+Use appropriate systemd file for `/etc/systemd/system`: 
+* dmsragent.service
+* dmsrserver.service
+
 ### WTF does that mean?
 
 There is no state. Its either down, or it aint. 
