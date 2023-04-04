@@ -21,4 +21,4 @@ class process(Plugin):
                 if proc.info['name'] == process:
                     data[process] = 'up'
 
-        self.send(data)
+        return data

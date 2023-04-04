@@ -33,4 +33,4 @@ class sysinfo(Plugin):
                 'used': "{}%".format(psutil.disk_usage(disk).percent)
             }
 
-        self.send(data)
+        return data

@@ -20,4 +20,4 @@ class http(Plugin):
             except:
                 data[url] = 'Down'
 
-        self.send(data)
+        return data

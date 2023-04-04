@@ -29,10 +29,3 @@ class Plugin():
             self.refresh = config['refresh'] 
         if 'private' in config:
             self.refresh = config['private'] 
-
-
-    def send(self, data):
-        try:
-            Network.send(data, self.name, self.refresh)
-        except:
-            logging.info("Could not reach server, ignoring")

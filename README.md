@@ -18,16 +18,7 @@ A minimalistic monitoring solution to see if my shit still works.
 Thats it.
 
 
-## How to 
-
-1) deploy the server. Set a password in server.yaml
-2) deploy agents: 
-  * set password and server URL in config.yaml
-  * enable some plugins in config.yaml
-  * configure the plugins in `plugins/<plugin>.yaml`
-
-
-## install
+## Install
 
 We install it as a dedicated user:
 
@@ -35,22 +26,31 @@ We install it as a dedicated user:
 $ sudo adduser --disabled-password dmsr
 $ cd /home/dmsr
 $ git clone https://github.com/dobin/dmsr
+$ pip3 install -r requirements.txt
 ```
 
 Use appropriate systemd file for `/etc/systemd/system`: 
 * dmsragent.service
 * dmsrserver.service
 
-### WTF does that mean?
 
-There is no state. Its either down, or it aint. 
+## How to Use
+
+Server: 
+* configure password in `server.yaml`
+* start server: `./server.py`
+
+Agent: 
+* configure password and plugins in `agent.yaml`
+* start agent: `./agent.py`
+
+
+## Design Decisions
+
+There is no state. Stuff is either down, or it aint.
+
+There is no server side configuration.
 
 What data is pushed is configured on the agents. 
 How the data will look like is configured on the agents. 
 Because thats where you decide what you want to monitor. 
-
-
-### Why?
-
-Too many projects. Too many VM's. Too many containers. 
-
