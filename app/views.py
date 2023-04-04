@@ -19,7 +19,7 @@ def push():
     packet = request.json
 
     # check if we have all data
-    vars = 'agentname', 'pluginname', 'refresh', 'data', 'password'
+    vars = [ 'agentname', 'pluginname', 'refresh', 'data', 'password', 'status' ]
     for i in vars:
         if not i in packet:
             logging.warn("Missing data")
@@ -31,6 +31,7 @@ def push():
     refresh = packet['refresh']
     data = packet['data']
     password = packet['password']
+    status = packet['status']
 
     # auth
     if password != current_app.config["PASSWORD"]:
@@ -38,7 +39,7 @@ def push():
         return 'bad request', 400
 
     # create & finish
-    dataLake.push(agentname, pluginname, refresh, data)
+    dataLake.push(agentname, pluginname, refresh, data, status)
     ret = { 'success': 'true'}
     return make_response(jsonify(ret), 201)
 

@@ -1,4 +1,5 @@
 import psutil
+from typing import Tuple
 
 from client.model import Plugin
 from utils import prettyNumber
@@ -12,9 +13,10 @@ class sysinfo(Plugin):
         self.config['show memory'] = True
 
 
-    def run(self):
+    def run(self) -> Tuple[str, str]:
         # Reference: https://pypi.org/project/psutil/
         data = {}
+        status = ''
 
         if self.config['show load']:
             data['load'] = list(psutil.getloadavg())
@@ -33,4 +35,4 @@ class sysinfo(Plugin):
                 'used': "{}%".format(psutil.disk_usage(disk).percent)
             }
 
-        return data
+        return data, status

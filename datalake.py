@@ -2,11 +2,12 @@ import time
 
 
 class PluginData():
-    def __init__(self, pluginname, refresh, recvTime, data):
+    def __init__(self, pluginname, refresh, recvTime, data, status):
         self.pluginname = pluginname
         self.refresh = refresh
         self.recvTime = recvTime
         self.data = data
+        self.status = status
 
 
     def isTimeouted(self):
@@ -20,12 +21,12 @@ class DataLake():
         self.data = {}
 
 
-    def push(self, agentname: str, pluginname: str, refresh, data):
+    def push(self, agentname: str, pluginname: str, refresh, data, status):
         if agentname not in self.data:
             self.data[agentname] = {}
 
         recvTime = time.time()
-        pluginData = PluginData(pluginname, refresh, recvTime, data)
+        pluginData = PluginData(pluginname, refresh, recvTime, data, status)
         self.data[agentname][pluginname] = pluginData
 
 

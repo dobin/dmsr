@@ -1,4 +1,5 @@
 import requests
+from typing import Tuple
 
 from client.model import Plugin
 from utils import prettyNumber
@@ -10,8 +11,9 @@ class http(Plugin):
         self.config['urls'] = []
 
 
-    def run(self):
+    def run(self) -> Tuple[str, str]:
         data = {}
+        status = ""
 
         for url in self.config['urls']:
             try:
@@ -19,5 +21,6 @@ class http(Plugin):
                 data[url] = 'Up'
             except:
                 data[url] = 'Down'
+                status = "warn"
 
-        return data
+        return data, status

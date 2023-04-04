@@ -28,6 +28,9 @@
         .pluginjson {
             margin: 1em;
         }
+        .status-warn {
+            background-color: rgb(255, 226, 226) !important;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +42,8 @@
     </div>
 
     {% for plugin in data[agent]|sort %}
-        <div class="plugin">
+        <div class="plugin status-{{data[agent][plugin].status}}">
+            
             {{plugin}}
             {% if data[agent][plugin].isTimeouted() %}
             TIMEOUT

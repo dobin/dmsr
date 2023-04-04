@@ -10,7 +10,7 @@ class Network():
         self.server = ''
 
 
-    def send(self, data, name, refresh):
+    def send(self, data, name, refresh, status):
         global CONFIG
         packet = {
             'agentname': self.hostname,
@@ -18,6 +18,7 @@ class Network():
             'refresh': refresh,
             'password': self.password,
             'data': data,
+            'status': status,
         }
 
         try:
