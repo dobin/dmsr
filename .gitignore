@@ -6,3 +6,4 @@ __pycache__
 bak/
 testing/
 todo.txt
+*.yaml
