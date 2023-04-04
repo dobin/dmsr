@@ -11,12 +11,26 @@ from typing import List
 from client.network import Network
 
 
-def loadPlugins(pluginNames: List[str], refresh: int):
+def loadPlugins(pluginConfig, globalRefresh: int):
     plugins = []
-    for pluginName in pluginNames:
+
+    for pluginName in pluginConfig:
+        config = pluginConfig[pluginName]
+
+        # skip inactive
+        if not ('enabled' in config and config['enabled']):
+            continue
+
+        # load plugin
         module = importlib.import_module('plugins.' + pluginName)
         p = getattr(module, pluginName)
-        plugin = p(refresh=refresh)
+        
+        # configure it
+        plugin = p(refresh=globalRefresh)
+        plugin.setConfig(config)
+        if 'refresh' in config:
+            plugin.refresh = config['refresh']
+            
         plugins.append(plugin)
 
     return plugins
@@ -34,8 +48,8 @@ def main():
     config = loadConfig()
     Network.setConfig(config['server'], config['password'])
     plugins = loadPlugins(config['plugins'], config['refresh'])
+
     for plugin in plugins:
-        plugin.loadConfig()
         print("Plugin {} refresh: {}".format(plugin.name, plugin.refresh))
         plugin.run()
         schedule.every(plugin.refresh).seconds.do(plugin.run)

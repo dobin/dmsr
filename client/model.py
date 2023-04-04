@@ -17,19 +17,8 @@ class Plugin():
         pass
 
 
-    def loadConfig(self):
-        filepath = os.path.join('plugins', self.__class__.__name__ + '.yaml')
-        p = Path(filepath)
-        if not p.is_file():
-            # dont care
-            return None
-
-        with open(filepath) as f:
-            yamlData = yaml.safe_load(f)
-            self.config = yamlData
-            if 'refresh' in yamlData:
-                self.refresh = yamlData['refresh']
-            print("  {}".format(yamlData))
+    def setConfig(self, config):
+        self.config = config
 
 
     def send(self, data):

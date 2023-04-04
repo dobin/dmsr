@@ -1,7 +1,22 @@
 server: http://localhost:5000
 password: password
-plugins:
-- sysinfo
-- http
-- process
 refresh: 60
+
+plugins:
+  http:
+    enabled: true
+    urls: 
+      - http://localhost:5000
+
+  process:
+    enabled: true
+    processes:
+      - init
+
+  sysinfo:
+    enabled: true
+    disks:
+      - /
+    show load: true
+    show memory: true
+    refresh: 60
