@@ -13,27 +13,28 @@ from typing import List
 from client.network import Network
 
 
-def loadPlugins(pluginConfig, globalRefresh: int):
+def loadPlugins(config, globalRefresh: int):
     plugins = []
 
-    for pluginName in pluginConfig:
-        config = pluginConfig[pluginName]
+    for pluginName in config:
+        pluginConfig = config[pluginName]
 
         # skip inactive
-        if not ('enabled' in config and config['enabled']):
+        if not ('enabled' in pluginConfig and pluginConfig['enabled']):
             continue
 
-        plugin = loadPlugin(pluginName, globalRefresh)
-        plugin.setConfig(config)
+        plugin = loadPlugin(pluginName, config, globalRefresh)
         plugins.append(plugin)
 
     return plugins
 
 
-def loadPlugin(pluginName, globalRefresh):
+def loadPlugin(pluginName, config, globalRefresh):
     module = importlib.import_module('plugins.' + pluginName)
     p = getattr(module, pluginName)
+    pluginConfig = config[pluginName]
     plugin = p(refresh=globalRefresh)
+    plugin.setConfig(pluginConfig)
     return plugin
 
 
@@ -44,10 +45,12 @@ def loadConfig():
         return config
 
 
-def executor(plugin):
+def executor(plugin, verbose=False):
     data = plugin.run()
     try:
         Network.send(data, plugin.name, plugin.refresh)
+        if verbose:
+            print("Sending data from plugin {} successful: {}".format(plugin.name, data))
     except:
         logging.info("Could not reach server, ignoring")
 
@@ -60,7 +63,7 @@ def main():
     Network.setConfig(config['server'], config['password'])
     
     if args.test:
-        plugin = loadPlugin(args.test, config['refresh'])
+        plugin = loadPlugin(args.test, config['plugins'], config['refresh'])
         print("Plugin {} (refresh: {})".format(plugin.name, plugin.refresh))
         data = plugin.run()
         pprint.pprint(data, indent=4)
@@ -69,7 +72,7 @@ def main():
         plugins = loadPlugins(config['plugins'], config['refresh'])
         for plugin in plugins:
             print("Plugin {} (refresh: {})".format(plugin.name, plugin.refresh))
-            plugin.run()
+            executor(plugin, verbose=True)
             schedule.every(plugin.refresh).seconds.do(executor, plugin)
 
         while True:
