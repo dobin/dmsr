@@ -19,7 +19,11 @@ class sysinfo(Plugin):
         status = ''
 
         if self.config['show load']:
-            data['load'] = list(psutil.getloadavg())
+            data['load'] = [
+                round(psutil.getloadavg()[0], 2),
+                round(psutil.getloadavg()[1], 2),
+                round(psutil.getloadavg()[2], 2)
+            ]
 
         if self.config['show memory']:
             data['memory'] = {
