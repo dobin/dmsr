@@ -32,7 +32,12 @@ def loadPlugins(config, globalRefresh: int):
 def loadPlugin(pluginName, config, globalRefresh):
     module = importlib.import_module('plugins.' + pluginName)
     p = getattr(module, pluginName)
-    pluginConfig = config[pluginName]
+
+    if pluginName in config:
+        pluginConfig = config[pluginName]
+    else:
+        pluginConfig = {}
+
     plugin = p(refresh=globalRefresh)
     plugin.setConfig(pluginConfig)
     return plugin
