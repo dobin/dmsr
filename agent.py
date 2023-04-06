@@ -55,7 +55,8 @@ def executor(plugin, verbose=False):
     try:
         Network.send(data, plugin.name, plugin.refresh, status)
         if verbose:
-            print("Sending data from plugin {} successful: {}".format(plugin.name, data))
+            print("Success: Sending data from plugin {}".format(plugin.name))
+            print("  {}".format(data))
     except:
         logging.info("Could not reach server, ignoring")
 
@@ -69,14 +70,14 @@ def main():
     
     if args.test:
         plugin = loadPlugin(args.test, config['plugins'], config['refresh'])
-        print("Plugin {} (refresh: {})".format(plugin.name, plugin.refresh))
+        print("Testing plugin {} (refresh: {})".format(plugin.name, plugin.refresh))
         data = plugin.run()
         pprint.pprint(data, indent=4)
 
     else:
         plugins = loadPlugins(config['plugins'], config['refresh'])
         for plugin in plugins:
-            print("Plugin {} (refresh: {})".format(plugin.name, plugin.refresh))
+            print("Loading plugin {} (refresh: {})".format(plugin.name, plugin.refresh))
             executor(plugin, verbose=True)
             schedule.every(plugin.refresh).seconds.do(executor, plugin)
 
