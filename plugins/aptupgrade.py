@@ -14,19 +14,20 @@ class aptupgrade(Plugin):
     def run(self) -> Tuple[str, str]:
         data = {}
         status = ''
+        filepath = '/var/log/apt/history.log'
 
-        if not os.path.exists('/var/log/apt/history.log'):
+        if not os.path.exists(filepath):
             status = 'error'
-            logging.error('/var/log/apt/history.log does not exist')
+            logging.error('{} does not exist'.format(filepath))
             return data, status
 
-        cmd = 'grep "apt upgrade" -B1 /var/log/apt/history.log | tail -2'
-        output = subprocess.check_output(cmd, shell=True)
+        cmd = 'grep "apt upgrade" -B1 {} | tail -2'.format(filepath)
+        output = subprocess.check_output(cmd, shell=True).decode("utf-8")
 
         # example output:
         # Start-Date: 2022-03-18  11:52:49
         # Commandline: apt upgrade
-        line = output.splitlines()[0].decode("utf-8")
+        line = output.splitlines()[0]
         s = line.split()
         data['last'] = "{} {}".format(s[1], s[2])
         return data, status
