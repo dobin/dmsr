@@ -9,14 +9,14 @@ from client.model import Plugin
 class gitupdate(Plugin):
     def __init__(self, refresh):
         super().__init__(refresh)
-        self.config['gitrepos'] = [  ]
+        self.config['paths'] = [  ]
 
 
     def run(self) -> Tuple[str, str]:
         data = {}
         status = ''
 
-        for path in self.config['gitrepos']:
+        for path in self.config['paths']:
             if not os.path.exists(path):
                 logging.error('Plugin gitupdate: {} does not exist'.format(path))
                 data[path] = "Not exist"
@@ -29,7 +29,9 @@ class gitupdate(Plugin):
             # Date:   Wed Apr 5 18:23:38 2023 +0200
             #
             #     fix: ignore missing config entry for plugin
-            line = output.splitlines()[2]
-            data[path] = line.split('   ')[1]
+            lines = output.splitlines()
+            for line in lines:
+                if line.startswith('Date:'):
+                    data[path] = line.split('   ')[1]
 
         return data, status

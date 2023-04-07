@@ -20,3 +20,19 @@ plugins:
     show load: true
     show memory: true
     refresh: 60
+
+  systemdunit:
+    enabled: false
+    units:
+    - ssh
+
+  loggedin:
+    enabled: false
+
+  aptupgrade:
+    enabled: true
+
+  gitupdate:
+    enabled: true
+    paths:
+    - /home/dmsr/dmsr
