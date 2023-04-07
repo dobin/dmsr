@@ -29,7 +29,8 @@ class aptupgrade(Plugin):
         lines = output.splitlines()
         if len(lines) < 2:
             logging.warn("No apt upgrade happened")
-            status = 'error'
+            data['last'] = 'never'
+            status = 'info'
             return data, status
 
         line = lines[0]
