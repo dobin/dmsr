@@ -26,7 +26,13 @@ class aptupgrade(Plugin):
         # example output:
         # Start-Date: 2022-03-18  11:52:49
         # Commandline: apt upgrade
-        line = output.splitlines()[0]
+        lines = output.splitlines()
+        if len(lines) < 2:
+            logging.warn("No apt upgrade happened")
+            status = 'error'
+            return data, status
+
+        line = lines[0]
         s = line.split()
         data['last'] = "{} {}".format(s[1], s[2])
 
