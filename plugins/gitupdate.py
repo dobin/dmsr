@@ -32,6 +32,7 @@ class gitupdate(Plugin):
             lines = output.splitlines()
             for line in lines:
                 if line.startswith('Date:'):
-                    data[path] = line.split('   ')[1]
+                    dir = os.path.basename(path)
+                    data[dir] = line.split('   ')[1]
 
         return data, status
