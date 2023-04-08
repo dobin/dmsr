@@ -28,4 +28,4 @@ class Plugin():
         if 'refresh' in config:
             self.refresh = config['refresh'] 
         if 'private' in config:
-            self.refresh = config['private'] 
+            self.private = config['private'] 

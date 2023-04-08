@@ -1,13 +1,17 @@
 # DMSR - Does My Shit Run
 
 A minimalistic monitoring solution to see if my shit still works.
+See [mon.yookiterm.ch](https://mon.yookiterm.ch) for how I use it.
 
 * Agent based
 * HTTP communication from agent to server
-* No history
-* No DB
-* No need to run as root
 * Simple python plugins
+* No history
+* No DB, No time series DB
+* No query language
+* No need to run as root
+* No filtering, aggregation, transformation or processing
+
 
 
 ## How it works
@@ -18,6 +22,9 @@ A minimalistic monitoring solution to see if my shit still works.
 * Server will pretty print JSON (from all servers, all plugins)
 
 Thats it.
+
+
+## Screenshot
 
 
 ## Install
@@ -100,6 +107,7 @@ pagerefresh: 60
 ## Design Decisions
 
 There is no history. Stuff is either down currently, or it aint.
+
 There is no persistence. Dont care about the status 5 minute ago.
 
 There is no server side configuration.

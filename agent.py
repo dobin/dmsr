@@ -53,7 +53,7 @@ def loadConfig():
 def executor(plugin, verbose=False):
     data, status = plugin.run()
     try:
-        Network.send(data, plugin.name, plugin.refresh, status)
+        Network.send(data, plugin.name, plugin.refresh, status, plugin.private)
         if verbose:
             print("Success: Sending data from plugin {}".format(plugin.name))
             print("  {}".format(data))

@@ -21,10 +21,10 @@ class process(Plugin):
         for proc in psutil.process_iter(['pid', 'name']):
             for process in self.config['processes']:
                 if proc.info['name'] == process:
-                    data[process] = 'up'
+                    data[process] = 'Up'
 
         for process in data:
-            if process != 'up':
+            if process != 'Up':
                 status = 'warn'
                 break
 

@@ -10,9 +10,33 @@ views = Blueprint('views', __name__)
 
 @views.route("/")
 def index():
-    data = dataLake.getAll()
+    isAdmin = checkIsAdmin(request)
+    data = dataLake.getAll(isAdmin)
     return render_template('index.html', data=data)
 
+
+@views.route("/admin", methods=['GET', 'POST'])
+def admin():
+    if request.method == "POST":
+        pw = request.form['password']
+        if pw == current_app.config["ADMINPW"]:
+            response = make_response(redirect('/'))
+            response.set_cookie('pw', pw)
+            return response
+        else:
+            return redirect('/')
+    else:
+        return render_template('login.html')
+    
+
+def checkIsAdmin(request):
+    adminPw = request.cookies.get('pw')
+    if adminPw == None:
+        return False
+    if adminPw == current_app.config["ADMINPW"]:
+        return True
+    else:
+        return False
 
 @views.route("/push", methods=['GET', 'POST'])
 def push():
@@ -32,6 +56,7 @@ def push():
     data = packet['data']
     password = packet['password']
     status = packet['status']
+    private = packet['private']
 
     # auth
     if password != current_app.config["PASSWORD"]:
@@ -39,7 +64,7 @@ def push():
         return 'bad request', 400
 
     # create & finish
-    dataLake.push(agentname, pluginname, refresh, data, status)
+    dataLake.push(agentname, pluginname, refresh, data, status, private)
     ret = { 'success': 'true'}
     return make_response(jsonify(ret), 201)
 

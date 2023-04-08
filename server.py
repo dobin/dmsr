@@ -49,6 +49,7 @@ if __name__ == "__main__":
     config = loadConfig()
     app.config['PASSWORD'] = config['password']
     app.config['PAGEREFRESH'] = config['pagerefresh']
+    app.config['ADMINPW'] = config['adminpw']
 
     app.run(host=args.listenip,
             port=args.listenport)

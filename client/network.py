@@ -10,8 +10,7 @@ class Network():
         self.server = ''
 
 
-    def send(self, data, name, refresh, status):
-        global CONFIG
+    def send(self, data, name, refresh, status, private):
         packet = {
             'agentname': self.hostname,
             'pluginname': name,
@@ -19,6 +18,7 @@ class Network():
             'password': self.password,
             'data': data,
             'status': status,
+            'private': private,
         }
 
         try:
