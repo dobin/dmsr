@@ -53,12 +53,12 @@ def loadConfig():
 def executor(plugin, verbose=False):
     data, status = plugin.run()
     try:
-        Network.send(data, plugin.name, plugin.refresh, status, plugin.private)
+        Network.send(data, status, plugin)
         if verbose:
             print("Success: Sending data from plugin {}".format(plugin.name))
             print("  {}".format(data))
     except:
-        logging.info("Could not reach server, ignoring")
+        logging.info("Could not reach server")
 
 
 def main():

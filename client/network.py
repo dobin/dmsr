@@ -10,15 +10,15 @@ class Network():
         self.server = ''
 
 
-    def send(self, data, name, refresh, status, private):
+    def send(self, data, status, plugin):
         packet = {
             'agentname': self.hostname,
-            'pluginname': name,
-            'refresh': refresh,
+            'pluginname': plugin.name,
+            'refresh': plugin.refresh,
             'password': self.password,
             'data': data,
             'status': status,
-            'private': private,
+            'private': plugin.private,
         }
 
         try:

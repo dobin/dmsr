@@ -1,7 +1,7 @@
 import psutil
 from typing import Tuple
 
-from client.model import Plugin
+from client.plugin import Plugin
 
 
 class process(Plugin):

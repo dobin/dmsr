@@ -3,7 +3,7 @@ import os
 import subprocess
 import logging
 
-from client.model import Plugin
+from client.plugin import Plugin
 
 
 class gitupdate(Plugin):
