@@ -22,6 +22,10 @@ class DataLake():
         self.data = {}
 
 
+    def reset(self):
+        self.data = {}
+
+
     def push(self, agentname: str, pluginname: str, refresh, data, status, private):
         if agentname not in self.data:
             self.data[agentname] = {}

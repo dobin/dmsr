@@ -25,9 +25,23 @@ def admin():
             return response
         else:
             return redirect('/')
-    else:
-        return render_template('login.html')
     
+    isAdmin = checkIsAdmin(request)
+    if isAdmin:
+        return render_template('admin.html', isAdmin=isAdmin)
+    else:
+        return render_template('login.html', isAdmin=isAdmin)
+
+
+@views.route("/reset", methods=['POST'])
+def reset():
+    isAdmin = checkIsAdmin(request)
+    if isAdmin:
+        dataLake.reset()
+        
+    return redirect('/')
+
+
 
 def checkIsAdmin(request):
     adminPw = request.cookies.get('pw')
