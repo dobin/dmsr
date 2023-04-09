@@ -26,6 +26,8 @@ Thats it.
 
 ## Screenshot
 
+![Screenshot](https://raw.githubusercontent.com/dobin/dmsr/main/doc/doesmyshitrun.png)
+
 
 ## Install
 
