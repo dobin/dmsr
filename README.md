@@ -13,7 +13,6 @@ See [mon.yookiterm.ch](https://mon.yookiterm.ch) for how I use it.
 * No filtering, aggregation, transformation or processing
 
 
-
 ## How it works
 
 * Agent has plugins
@@ -54,11 +53,11 @@ For persistence, use appropriate systemd file  (for `/etc/systemd/system`):
 ## How to Use
 
 Server: 
-* configure password in `server.yaml`
+* configure `password` in `server.yaml`
 * start server: `./server.py`
 
 Agent: 
-* configure password and plugins in `agent.yaml`
+* configure `password` and plugins in `agent.yaml`
 * start agent: `./agent.py`
 
 
@@ -94,6 +93,7 @@ plugins:
 
   systemdunit:
     enabled: false
+    private: true
     units:
     - ssh
 ```
@@ -105,6 +105,26 @@ plugins:
 password: password
 pagerefresh: 60
 ```
+
+
+## Admin
+
+Configure `adminpw` in `server.yaml`. 
+
+Login with `/admin`. 
+
+To make a plugin data private, set `private = true` in `agent.yaml`.
+
+
+## Alarm
+
+Plugins may return non empty `status`, most often with `warn`. 
+
+The endpoint `/status` will return HTTP `200` if all status
+are ok, and `500` if one is not ok. 
+
+Use [Desktop Web Scheduler (DWS)](https://github.com/ozzi-/DWS) to get a notification if some shit doesnt run anymore.
+
 
 ## Design Decisions
 

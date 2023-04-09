@@ -30,6 +30,7 @@ plugins:
     enabled: false
 
   aptupgrade:
+    private: true
     enabled: true
 
   gitupdate:
