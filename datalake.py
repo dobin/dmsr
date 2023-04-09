@@ -15,7 +15,13 @@ class PluginData():
         if time.time() > self.recvTime + self.refresh * 2:
             return True
         return False
+    
 
+    @staticmethod 
+    def make(pluginname, refresh, data, status, private):
+        recvTime = time.time()
+        return PluginData(pluginname, refresh, recvTime, data, status, private)
+    
 
 class DataLake():
     def __init__(self):
@@ -26,13 +32,11 @@ class DataLake():
         self.data = {}
 
 
-    def push(self, agentname: str, pluginname: str, refresh, data, status, private):
+    def push(self, agentname: str, pluginData):
         if agentname not in self.data:
             self.data[agentname] = {}
 
-        recvTime = time.time()
-        pluginData = PluginData(pluginname, refresh, recvTime, data, status, private)
-        self.data[agentname][pluginname] = pluginData
+        self.data[agentname][pluginData.pluginname] = pluginData
 
 
     def get(self, agentname: str, pluginname: str) -> PluginData:

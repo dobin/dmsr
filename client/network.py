@@ -11,18 +11,20 @@ class Network():
 
 
     def send(self, data, status, plugin):
+        headers = {
+            'password': self.password,
+        }
         packet = {
             'agentname': self.hostname,
             'pluginname': plugin.name,
             'refresh': plugin.refresh,
-            'password': self.password,
             'data': data,
             'status': status,
             'private': plugin.private,
         }
 
         try:
-            res = requests.post(self.server + '/push', json=packet)
+            res = requests.post(self.server + '/push', headers=headers, json=packet)
             if res.ok:
                 return True
             else:

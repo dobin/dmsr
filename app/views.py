@@ -1,9 +1,10 @@
 from flask import Blueprint, current_app, flash, request, redirect, url_for, render_template, make_response, jsonify
-from datalake import dataLake
 import pprint
 import json
 import yaml
 import logging
+
+from datalake import dataLake, PluginData
 
 views = Blueprint('views', __name__)
 
@@ -42,7 +43,6 @@ def reset():
     return redirect('/')
 
 
-
 def checkIsAdmin(request):
     adminPw = request.cookies.get('pw')
     if adminPw == None:
@@ -56,8 +56,14 @@ def checkIsAdmin(request):
 def push():
     packet = request.json
 
+    # auth
+    password = request.headers.get('password', '')
+    if password != current_app.config["PASSWORD"]:
+        logging.warn("Invalid password")
+        return 'bad request', 400
+    
     # check if we have all data
-    vars = [ 'agentname', 'pluginname', 'refresh', 'data', 'password', 'status' ]
+    vars = [ 'agentname', 'pluginname', 'refresh', 'data', 'status', 'private' ]
     for i in vars:
         if not i in packet:
             logging.warn("Missing data")
@@ -68,19 +74,13 @@ def push():
     pluginname = packet['pluginname']
     refresh = packet['refresh']
     data = packet['data']
-    password = packet['password']
     status = packet['status']
     private = packet['private']
-
-    # auth
-    if password != current_app.config["PASSWORD"]:
-        logging.warn("Invalid password")
-        return 'bad request', 400
+    pluginData = PluginData.make(pluginname, refresh, data, status, private)
 
     # create & finish
-    dataLake.push(agentname, pluginname, refresh, data, status, private)
-    ret = { 'success': 'true'}
-    return make_response(jsonify(ret), 201)
+    dataLake.push(agentname, pluginData)
+    return make_response('', 201)
 
 
 @views.app_template_filter('prettyjson')
