@@ -103,6 +103,7 @@ plugins:
 `server.yaml.sample`:
 ```yaml
 password: password
+adminpw: password
 pagerefresh: 60
 ```
 
@@ -116,12 +117,12 @@ Login with `/admin`.
 To make a plugin data private, set `private = true` in `agent.yaml`.
 
 
-## Alarm
+## Alarming
 
-Plugins may return non empty `status`, most often with `warn`. 
+Plugins may return non empty `status`, most often with the string `warn`. They decide by themselves when to send it.
 
 The endpoint `/status` will return HTTP `200` if all status
-are ok, and `500` if one is not ok. 
+are ok, and `500` if at least one is not ok.
 
 Use [Desktop Web Scheduler (DWS)](https://github.com/ozzi-/DWS) to get a notification if some shit doesnt run anymore.
 
