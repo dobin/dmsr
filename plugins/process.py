@@ -24,7 +24,7 @@ class process(Plugin):
                     data[process] = 'Up'
 
         for process in data:
-            if process != 'Up':
+            if data[process] != 'Up':
                 status = 'warn'
                 break
 
