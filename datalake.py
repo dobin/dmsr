@@ -58,6 +58,15 @@ class DataLake():
                 if not self.data[agentName][pluginName].private:
                     ret[agentName][pluginName] = self.data[agentName][pluginName]
         return ret
+    
+
+    def getStatus(self):
+        for agentName in self.data:
+            for pluginName in self.data[agentName]:
+                if self.data[agentName][pluginName].status != '':
+                    print("A: {} {} {}".format(agentName, pluginName, self.data[agentName][pluginName].status))
+                    return False
+        return True
 
 
 dataLake = DataLake()

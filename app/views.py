@@ -36,11 +36,23 @@ def admin():
 
 @views.route("/reset", methods=['POST'])
 def reset():
+    # resets all data (until agents send their next packet)
+    # Basically cleans up old inactive agents
     isAdmin = checkIsAdmin(request)
     if isAdmin:
         dataLake.reset()
-        
     return redirect('/')
+
+
+@views.route("/status")
+def status():
+    # 200 if all ok,
+    # 500 if a plugin warns
+    status = dataLake.getStatus()
+    if status:
+        return make_response('', 200)
+    else:
+        return make_response('', 500)
 
 
 def checkIsAdmin(request):
