@@ -2,3 +2,4 @@ flask
 schedule
 psutil
 requests
+pyyaml
