@@ -11,6 +11,7 @@ class sysinfo(Plugin):
         self.config['disks'] = ['/']
         self.config['show load'] = True
         self.config['show memory'] = True
+        self.config['danger percent'] = 90
 
 
     def run(self) -> Tuple[str, str]:
@@ -24,6 +25,8 @@ class sysinfo(Plugin):
                 round(psutil.getloadavg()[1], 2),
                 round(psutil.getloadavg()[2], 2)
             ]
+            if psutil.getloadavg()[2] > self.config['danger percent']:
+                status = 'info'
 
         if self.config['show memory']:
             data['memory'] = {
@@ -31,6 +34,8 @@ class sysinfo(Plugin):
                 'available': prettyNumber(psutil.virtual_memory().available, 1024 * 1024),
                 'used': "{}%".format(psutil.virtual_memory().percent)
             }
+            if psutil.virtual_memory().percent > self.config['danger percent']:
+                status = 'info'
 
         for disk in self.config['disks']:
             data[disk] = {
@@ -38,5 +43,7 @@ class sysinfo(Plugin):
                 'free': prettyNumber(psutil.disk_usage(disk).free, 1024 * 1024),
                 'used': "{}%".format(psutil.disk_usage(disk).percent)
             }
+            if psutil.disk_usage(disk).percent > self.config['danger percent']:
+                status = 'info'
 
         return data, status

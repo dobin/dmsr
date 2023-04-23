@@ -20,6 +20,7 @@ plugins:
     show load: true
     show memory: true
     refresh: 60
+    danger percent: 90
 
   systemdunit:
     enabled: false
