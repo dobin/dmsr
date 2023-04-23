@@ -1,4 +1,5 @@
 import time
+import logging
 
 
 class PluginData():
@@ -64,7 +65,7 @@ class DataLake():
         for agentName in self.data:
             for pluginName in self.data[agentName]:
                 if self.data[agentName][pluginName].status != '':
-                    print("A: {} {} {}".format(agentName, pluginName, self.data[agentName][pluginName].status))
+                    logging.info("Status: {} {} {}".format(agentName, pluginName, self.data[agentName][pluginName].status))
                     return False
         return True
 
