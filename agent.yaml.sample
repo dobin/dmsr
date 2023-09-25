@@ -9,7 +9,7 @@ plugins:
     - http://localhost:5000
 
   process:
-    enabled: true
+    enabled: false
     processes:
     - init
 
@@ -19,11 +19,11 @@ plugins:
     - /
     show load: true
     show memory: true
-    refresh: 60
     danger percent: 90
+    refresh: 60
 
   systemdunit:
-    enabled: false
+    enabled: true
     units:
     - ssh
 
@@ -31,10 +31,17 @@ plugins:
     enabled: false
 
   aptupgrade:
+    enabled: false
     private: true
-    enabled: true
 
   gitupdate:
-    enabled: true
+    enabled: false
     paths:
     - /home/dmsr/dmsr
+
+  filecount:
+    enabled: false
+    observed:
+    - name: "logfiles"
+      glob: "/var/log/*"
+
