@@ -127,6 +127,57 @@ are ok, and `500` if at least one is not ok.
 Use [Desktop Web Scheduler (DWS)](https://github.com/ozzi-/DWS) to get a notification if some shit doesnt run anymore.
 
 
+## Plugins
+
+Create the plugin file `helloworld.py`: 
+
+```sh
+$ touch plugins/helloworld/helloworld.py
+```
+
+Implement `helloworld.py`. Class needs to have the same name as the filename.
+
+```python
+from typing import Tuple, Dict
+from client.plugin import Plugin
+
+class helloworld(Plugin):
+    def __init__(self, refresh):
+        super().__init__(refresh)
+
+        # config default for this plugin
+        self.config['output'] = [ "hello world?" ]
+
+
+    def run(self) -> Tuple[Dict, str]:
+        data = {}
+        status = ""
+
+        data["message"] = ",".join(self.config['output'])
+
+        return data, status
+```
+
+update `config.yaml`. Use the filename/classname as name, and enable it:
+```yaml
+plugins:
+  helloworld:
+    enabled: true
+    output: 
+    - "Hello World!"
+```
+
+Test with:
+```
+$ python3 ./agent.py --test helloworld
+Testing plugin helloworld (refresh: 60)
+({'message': 'Hello World!'}, '')
+```
+
+It will output a tuple where the first element is the data structure
+which gets yaml'd as output, and a status code of the plugin (warning, error).
+
+
 ## Design Decisions
 
 There is no history. Stuff is either down currently, or it aint.
