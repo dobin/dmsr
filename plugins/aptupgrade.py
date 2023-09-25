@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Dict
 import os
 import subprocess
 import logging
@@ -11,7 +11,7 @@ class aptupgrade(Plugin):
         super().__init__(refresh)
 
 
-    def run(self) -> Tuple[str, str]:
+    def run(self) -> Tuple[Dict, str]:
         data = {}
         status = ''
         filepath = '/var/log/apt/history.log'

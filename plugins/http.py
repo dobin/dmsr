@@ -1,5 +1,5 @@
 import requests
-from typing import Tuple
+from typing import Tuple, Dict
 
 from client.plugin import Plugin
 from utils import prettyNumber
@@ -11,7 +11,7 @@ class http(Plugin):
         self.config['urls'] = []
 
 
-    def run(self) -> Tuple[str, str]:
+    def run(self) -> Tuple[Dict, str]:
         data = {}
         status = ""
 

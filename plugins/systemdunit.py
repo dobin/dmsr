@@ -1,5 +1,5 @@
 import os
-from typing import Tuple
+from typing import Tuple, Dict
 
 from client.plugin import Plugin
 
@@ -10,7 +10,7 @@ class systemdunit(Plugin):
         self.config['processes'] = [ ]
 
 
-    def run(self) -> Tuple[str, str]:
+    def run(self) -> Tuple[Dict, str]:
         data = {}
         status = ''
 

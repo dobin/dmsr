@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Dict
 import os
 import subprocess
 import logging
@@ -12,7 +12,7 @@ class gitupdate(Plugin):
         self.config['paths'] = [  ]
 
 
-    def run(self) -> Tuple[str, str]:
+    def run(self) -> Tuple[Dict, str]:
         data = {}
         status = ''
 

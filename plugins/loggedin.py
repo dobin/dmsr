@@ -1,5 +1,5 @@
 import psutil
-from typing import Tuple
+from typing import Tuple, Dict
 
 from client.plugin import Plugin
 
@@ -9,7 +9,7 @@ class loggedin(Plugin):
         super().__init__(refresh)
 
 
-    def run(self) -> Tuple[str, str]:
+    def run(self) -> Tuple[Dict, str]:
         # Reference: https://pypi.org/project/psutil/
         data = {}
         status = ''

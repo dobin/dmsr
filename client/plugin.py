@@ -1,9 +1,4 @@
-import logging
-import yaml
-from pathlib import Path
-import os
-
-from client.network import Network
+from typing import Tuple, Dict
 
 
 class Plugin():
@@ -14,7 +9,7 @@ class Plugin():
         self.config = {}
 
 
-    def run(self):
+    def run(self) -> Tuple[Dict, str]:
         pass
 
 
