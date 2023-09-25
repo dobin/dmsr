@@ -1,7 +1,7 @@
 import psutil
 from typing import Tuple, Dict
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 
 
 class process(Plugin):
@@ -10,10 +10,10 @@ class process(Plugin):
         self.config['processes'] = [ ]
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         # Reference: https://pypi.org/project/psutil/
         data = {}
-        status = ''
+        status = PluginStatus.OK
 
         for process in self.config['processes']:
             data[process] = 'down'
@@ -25,7 +25,7 @@ class process(Plugin):
 
         for process in data:
             if data[process] != 'Up':
-                status = 'warn'
+                status = PluginStatus.WARN
                 break
 
         return data, status

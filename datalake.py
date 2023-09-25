@@ -1,15 +1,17 @@
 import time
 import logging
 
+from client.plugin import PluginStatus
+
 
 class PluginData():
-    def __init__(self, pluginname, refresh, recvTime, data, status, private):
-        self.pluginname = pluginname
-        self.refresh = refresh
+    def __init__(self, pluginname: str, refresh: int, recvTime, data, status: PluginStatus, private: bool):
+        self.pluginname: str = pluginname
+        self.refresh: int = refresh
         self.recvTime = recvTime
         self.data = data
-        self.status = status
-        self.private = private
+        self.status: PluginStatus = status
+        self.private: bool = private
 
 
     def isTimeouted(self):

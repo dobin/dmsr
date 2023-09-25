@@ -3,7 +3,7 @@ import os
 import subprocess
 import logging
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 
 
 class gitupdate(Plugin):
@@ -12,9 +12,9 @@ class gitupdate(Plugin):
         self.config['paths'] = [  ]
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         data = {}
-        status = ''
+        status = PluginStatus.OK
 
         for path in self.config['paths']:
             if not os.path.exists(path):

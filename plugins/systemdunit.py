@@ -1,7 +1,7 @@
 import os
 from typing import Tuple, Dict
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 
 
 class systemdunit(Plugin):
@@ -10,9 +10,9 @@ class systemdunit(Plugin):
         self.config['processes'] = [ ]
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         data = {}
-        status = ''
+        status = PluginStatus.OK
 
         for unit in self.config['units']:
             sh = 'service {} status >/dev/null 2>&1'.format(unit)
@@ -23,6 +23,6 @@ class systemdunit(Plugin):
             else:
                 # get error
                 data[unit] = "error: {}".format(stat)
-
+                status = PluginStatus.WARN
 
         return data, status

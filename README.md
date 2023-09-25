@@ -139,7 +139,7 @@ Implement `helloworld.py`. Class needs to have the same name as the filename.
 
 ```python
 from typing import Tuple, Dict
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 
 class helloworld(Plugin):
     def __init__(self, refresh):
@@ -149,9 +149,9 @@ class helloworld(Plugin):
         self.config['output'] = [ "hello world?" ]
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         data = {}
-        status = ""
+        status = PluginStatus.OK
 
         data["message"] = ",".join(self.config['output'])
 

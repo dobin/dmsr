@@ -1,7 +1,7 @@
 import psutil
 from typing import Tuple, Dict
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 from utils import prettyNumber
 
 
@@ -14,10 +14,10 @@ class sysinfo(Plugin):
         self.config['danger percent'] = 90
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         # Reference: https://pypi.org/project/psutil/
         data = {}
-        status = ''
+        status = PluginStatus.OK
 
         if self.config['show load']:
             data['load'] = [
@@ -26,7 +26,7 @@ class sysinfo(Plugin):
                 round(psutil.getloadavg()[2], 2)
             ]
             if psutil.getloadavg()[2] > self.config['danger percent']:
-                status = 'info'
+                status = PluginStatus.INFO
 
         if self.config['show memory']:
             data['memory'] = {
@@ -35,7 +35,7 @@ class sysinfo(Plugin):
                 'used': "{}%".format(psutil.virtual_memory().percent)
             }
             if psutil.virtual_memory().percent > self.config['danger percent']:
-                status = 'info'
+                status = PluginStatus.INFO
 
         for disk in self.config['disks']:
             data[disk] = {
@@ -44,6 +44,6 @@ class sysinfo(Plugin):
                 'used': "{}%".format(psutil.disk_usage(disk).percent)
             }
             if psutil.disk_usage(disk).percent > self.config['danger percent']:
-                status = 'info'
+                status = PluginStatus.INFO
 
         return data, status

@@ -4,7 +4,7 @@ import subprocess
 import logging
 import glob
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 
 
 class filecount(Plugin):
@@ -13,9 +13,9 @@ class filecount(Plugin):
         self.config['observed'] = []
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         data = {}
-        status = ''
+        status = PluginStatus.OK
 
         for observ in self.config["observed"]:
             name = observ["name"]

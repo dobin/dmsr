@@ -2,6 +2,8 @@ import requests
 import socket
 import logging
 
+from client.plugin import Plugin, PluginStatus
+
 
 class Network():
     def __init__(self):
@@ -10,7 +12,7 @@ class Network():
         self.server = ''
 
 
-    def send(self, data, status, plugin):
+    def send(self, data, status: PluginStatus, plugin):
         headers = {
             'password': self.password,
         }
@@ -19,7 +21,7 @@ class Network():
             'pluginname': plugin.name,
             'refresh': plugin.refresh,
             'data': data,
-            'status': status,
+            'status': status.value,
             'private': plugin.private,
         }
 

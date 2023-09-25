@@ -3,7 +3,7 @@ import os
 import subprocess
 import logging
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 
 
 class aptupgrade(Plugin):
@@ -11,13 +11,13 @@ class aptupgrade(Plugin):
         super().__init__(refresh)
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         data = {}
-        status = ''
+        status = PluginStatus.OK
         filepath = '/var/log/apt/history.log'
 
         if not os.path.exists(filepath):
-            status = 'error'
+            status = PluginStatus.ERROR
             logging.error('Plugin aptupgrade: {} does not exist'.format(filepath))
             return data, status
 
@@ -30,7 +30,7 @@ class aptupgrade(Plugin):
         if len(lines) < 2:
             logging.warn("No apt upgrade happened")
             data['last'] = 'never'
-            status = 'info'
+            status = PluginStatus.INFO
             return data, status
 
         line = lines[0]

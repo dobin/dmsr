@@ -1,4 +1,12 @@
 from typing import Tuple, Dict
+from enum import Enum
+
+
+class PluginStatus(Enum):
+    OK = ""
+    WARN = "warn"
+    INFO = "info"
+    ERROR = "error"
 
 
 class Plugin():
@@ -9,7 +17,7 @@ class Plugin():
         self.config = {}
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         pass
 
 

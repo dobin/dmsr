@@ -1,9 +1,8 @@
 import requests
 from typing import Tuple, Dict
 
-from client.plugin import Plugin
+from client.plugin import Plugin, PluginStatus
 from utils import prettyNumber
-
 
 class http(Plugin):
     def __init__(self, refresh):
@@ -11,9 +10,9 @@ class http(Plugin):
         self.config['urls'] = []
 
 
-    def run(self) -> Tuple[Dict, str]:
+    def run(self) -> Tuple[Dict, PluginStatus]:
         data = {}
-        status = ""
+        status = PluginStatus.OK
 
         for url in self.config['urls']:
             try:
@@ -21,6 +20,6 @@ class http(Plugin):
                 data[url] = 'Up'
             except:
                 data[url] = 'Down'
-                status = "warn"
+                status = PluginStatus.WARN
 
         return data, status
