@@ -132,7 +132,7 @@ Use [Desktop Web Scheduler (DWS)](https://github.com/ozzi-/DWS) to get a notific
 Create the plugin file `helloworld.py`: 
 
 ```sh
-$ touch plugins/helloworld/helloworld.py
+$ touch plugins/helloworld.py
 ```
 
 Implement `helloworld.py`. Class needs to have the same name as the filename.
