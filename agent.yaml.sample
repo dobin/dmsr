@@ -6,7 +6,8 @@ plugins:
   http:
     enabled: true
     urls: 
-    - http://localhost:5000
+      apache: http://localhost:8000
+      status: http://localhost:8080
 
   process:
     enabled: false
