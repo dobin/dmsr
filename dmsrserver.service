@@ -5,7 +5,7 @@ After=network.target
 [Service]
 User=dmsr
 WorkingDirectory=/home/dmsr/dmsr
-ExecStart=/home/dmsr/dmsr/server.py
+ExecStart=/home/dmsr/dmsr/.venv/bin/python /home/dmsr/dmsr/server.py
 Restart=always
 
 [Install]

@@ -38,16 +38,28 @@ $ cd /home/dmsr/
 $ su dmsr
 $ git clone https://github.com/dobin/dmsr
 $ cd dmsr/
-$ pip3 install -r requirements.txt
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip install -r requirements.txt
 $ cp agent.yaml.sample agent.yaml    # for agent
 $ cp server.yaml.sample server.yaml  # for server
 $ ./server.py &
 $ ./agent.py
 ```
 
+
+## Systemd service
+
 For persistence, use appropriate systemd file  (for `/etc/systemd/system`): 
 * dmsragent.service
 * dmsrserver.service
+
+```
+$ sudo systemctl start dmsragent.service
+$ sudo systemctl enable dmsragent.service
+$ sudo systemctl status dmsragent.service
+$ sudo journalctl -u dmsragent.service -f
+```
 
 
 ## How to Use
