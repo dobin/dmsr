@@ -1,7 +1,7 @@
 # DMSR - Does My Shit Run
 
 A minimalistic monitoring solution to see if my shit still works.
-See [mon.yookiterm.ch](https://mon.yookiterm.ch) for how I use it.
+See [mon.yookiterm.ch](https://mon.r00ted.ch) for how I use it.
 
 * Agent based
 * HTTP communication from agent to server
