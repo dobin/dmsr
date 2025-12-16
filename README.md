@@ -36,6 +36,7 @@ We install it as a dedicated user:
 $ sudo adduser --disabled-password dmsr
 $ cd /home/dmsr/
 $ su dmsr
+$ cd
 $ git clone https://github.com/dobin/dmsr
 $ cd dmsr/
 $ python3 -m venv .venv
@@ -50,13 +51,22 @@ $ ./agent.py
 
 ## Systemd service
 
-For persistence, use appropriate systemd file  (for `/etc/systemd/system`): 
-* dmsragent.service
-* dmsrserver.service
+
+For persistence, use appropriate systemd file. 
+
+Agent:
+```
+$ sudo cp dmsragent.service /etc/systemd/system/
+```
+
+or the Server:
+```
+$ sudo cp dmsrserver.service /etc/systemd/system/
+```
 
 ```
-$ sudo systemctl start dmsragent.service
 $ sudo systemctl enable dmsragent.service
+$ sudo systemctl start dmsragent.service
 $ sudo systemctl status dmsragent.service
 $ sudo journalctl -u dmsragent.service -f
 ```
@@ -87,14 +97,14 @@ plugins:
   http:
     enabled: true
     urls: 
-    - http://localhost:5000
+      dmsr: http://localhost:5000
     refresh: 120
 
   process:
     enabled: true
     processes:
-    - init
-    - asdf
+    - dmsragent
+    - dmsrserver
 
   sysinfo:
     enabled: true
