@@ -16,7 +16,7 @@ class http(Plugin):
 
         for name, url in self.config['urls'].items():
             try:
-                page = requests.get(url, timeout=1)
+                page = requests.get(url, timeout=1, verify=False)
                 data[name] = 'Up'
             except:
                 data[name] = 'Down'
